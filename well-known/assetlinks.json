@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.saveit.india",
+      "sha256_cert_fingerprints": [
+        "E8:47:12:AB:99:42:3C:5F:90:D2:B6:2C:44:27:77:12:85:90:48:DE:FA:9A:77:6C:7F:12:09:AB:CD:EF:88:77"
+      ]
+    }
+  }
+]
