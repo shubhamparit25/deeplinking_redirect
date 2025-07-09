@@ -1,18 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; url=saveit://product/EGCGBAMZ001" />
+    <title>SaveIt - Redirecting...</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 600px; margin: 50px auto; background: #f0f0f0; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        p { color: #666; line-height: 1.6; }
+        .button-group a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button-group a:hover {
+            background-color: #0056b3;
+        }
+    </style>
     <script>
+        // Get the full URL path from the browser
+        const currentPath = window.location.pathname;
+        const currentQuery = window.location.search;
+        const fullPath = currentPath + currentQuery;
 
-    var sku = 'EGCGBAMZ001';
+        // This is your custom scheme deep link (for direct app opening attempts)
+        const appDeepLink = `saveit://${currentPath.substring(1)}${currentQuery}`; // Remove leading slash for saveit://
 
-        window.onload = function () {
-            window.location.href = `saveit://product/${sku}`;
-        };
+        // Attempt to open the app directly
+        window.location.href = appDeepLink;
+
+        // Fallback for when the app doesn't open
+        // Set a timeout to display a message, but NOT redirect to non-existent stores
+        setTimeout(function() {
+            // Check if the page is still visible (meaning app didn't open)
+            if (document.hidden === undefined || !document.hidden) { // document.hidden check for modern browsers
+                document.getElementById('fallbackContent').innerHTML = `
+                    <p>It seems the SaveIt app is not installed on your device, or the link could not open it automatically.</p>
+                    <p>Please install the app first to use this feature.</p>
+                    <p>You can also try this direct link (may require the app to be installed): <a href="javascript:void(0);" onclick="window.location.href = appDeepLink;">Open SaveIt App</a></p>
+                    `;
+            }
+        }, 1000); // Wait 1 second before displaying fallback message
     </script>
 </head>
 <body>
-    <p>If you are not redirected automatically, follow this <a href="saveit://product/EGCGBAMZ001">link</a>.</p>
+<div class="container">
+    <h1>Redirecting to SaveIt App...</h1>
+    <p>If you're not redirected automatically, please ensure you have the SaveIt app installed.</p>
+    <p>You can also try this direct link: <a href="javascript:void(0);" onclick="window.location.href = appDeepLink;">Open SaveIt App</a></p>
+    <div id="fallbackContent">
+    </div>
+</div>
 </body>
 </html>
